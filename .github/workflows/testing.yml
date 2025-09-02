@@ -33,9 +33,10 @@ jobs:
 
             - name: "Build and compile assets"
               run: |
-                php bin/console importmap:install
-                php bin/console sass:build
-                php bin/console asset-map:compile
+                  php artisan migrate --force
+                  php artisan config:cache
+                  php artisan route:cache
+                  php artisan view:cache
 
             - name: "Run tests"
               run: vendor/bin/phpunit
