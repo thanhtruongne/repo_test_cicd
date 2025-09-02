@@ -1,1 +1,23 @@
 
+name: Laravel CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      # Các bước sẽ được định nghĩa ở đây
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      # Các bước triển khai sẽ được định nghĩa ở đây
