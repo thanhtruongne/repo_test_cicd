@@ -1,0 +1,50 @@
+
+name: Deploy to Server
+
+on:
+  workflow_run:
+    workflows: ["Run Tests"]
+    types:
+      - completed
+    branches:
+      - main
+
+env:
+  SSH_SERVER_IP: ${{ secrets.SSH_HOST }}
+  SSH_USER: ${{ secrets.SSH_USERNAME }}
+
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup SSH Agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to server
+        run: |
+          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER_IP << 'EOF'
+            git reset --hard
+            git pull origin main
+          EOF
+
+      - name: "Install dependencies"
+        run: |
+          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER_IP << 'EOF'
+            composer install --ansi --no-interaction --no-progress --prefer-dist
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+          EOF
+
+      - name: "Build and compile assets"
+        run: |
+          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER_IP << 'EOF'
+            npm install --production=false
+            npm run build
+          EOF

@@ -1,0 +1,41 @@
+name: "Run Tests"
+
+on:
+    pull_request:
+    push:
+        branches:
+            - main
+
+jobs:
+    unit-tests:
+        name: "ubuntu-latest / PHP 8.2"
+        runs-on: "ubuntu-latest"
+        steps:
+            - name: "Checkout code"
+              uses: actions/checkout@v4
+
+            - name: "Install PHP with extensions"
+              uses: shivammathur/setup-php@v2
+              with:
+                  coverage: "none"
+                  extensions: "intl, mbstring, pdo_sqlite, zip"
+                  php-version: "8.2"
+                  tools: composer:v2
+
+            - name: "Create .env file"
+              run: cp -rf .env.example .env
+
+            - name: "Add PHPUnit matcher"
+              run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+            - name: "Install dependencies"
+              run: composer install --ansi --no-interaction --no-progress
+
+            - name: "Build and compile assets"
+              run: |
+                php bin/console importmap:install
+                php bin/console sass:build
+                php bin/console asset-map:compile
+
+            - name: "Run tests"
+              run: vendor/bin/phpunit
