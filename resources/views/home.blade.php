@@ -30,7 +30,7 @@
                     <div class="card-body">
                         <i class="fas fa-microphone-alt fa-3x text-primary mb-3"></i>
                         <h3>{{ $featuredRooms->count() }}</h3>
-                        <h5>Phòng Thu</h5>
+                        <h5>Phòng Thu NghiệpNghiệpNghiệpNghiệpNghiệpNghiệpNghiệpNghiệpNghiệpNghiệpNghiệpNghiệpNghiệp</h5>
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@
         @foreach($featuredRooms as $room)
         <div class="col-md-4">
             <div class="card h-100 shadow-sm">
-                <img src="{{ $room->image_url }}" class="card-img-top" alt="{{ $room->name }}" 
+                <img src="{{ $room->image_url }}" class="card-img-top" alt="{{ $room->name }}"
                      style="height: 200px; object-fit: cover;">
                 <div class="card-body">
                     <h5 class="card-title">{{ $room->name }}</h5>
@@ -139,7 +139,7 @@
                     <i class="fas fa-envelope text-primary me-2"></i> info@studio.com
                 </li>
                 <li class="mb-3">
-                    <i class="fas fa-map-marker-alt text-primary me-2"></i> 
+                    <i class="fas fa-map-marker-alt text-primary me-2"></i>
                     123 Đường ABC, Quận XYZ, TP.HCM
                 </li>
             </ul>
@@ -153,7 +153,7 @@
             <div class="card border-0 shadow">
                 <div class="card-body">
                     <h4 class="card-title mb-4">Gửi Yêu Cầu Tư Vấn</h4>
-                    
+
                     <!-- Alert Messages -->
                     @if(session('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -172,45 +172,45 @@
                     <form action="{{ route('notifications.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" 
+                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
                                    placeholder="Họ và tên *" value="{{ old('name') }}" required>
                             @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        
+
                         <div class="mb-3">
-                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" 
+                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
                                    placeholder="Email *" value="{{ old('email') }}" required>
                             @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        
+
                         <div class="mb-3">
-                            <input type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror" 
+                            <input type="tel" name="phone" class="form-control @error('phone') is-invalid @enderror"
                                    placeholder="Số điện thoại" value="{{ old('phone') }}">
                             @error('phone')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        
+
                         <div class="mb-3">
-                            <input type="text" name="subject" class="form-control @error('subject') is-invalid @enderror" 
+                            <input type="text" name="subject" class="form-control @error('subject') is-invalid @enderror"
                                    placeholder="Tiêu đề" value="{{ old('subject') }}">
                             @error('subject')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        
+
                         <div class="mb-3">
-                            <textarea name="message" class="form-control @error('message') is-invalid @enderror" 
+                            <textarea name="message" class="form-control @error('message') is-invalid @enderror"
                                       rows="4" placeholder="Nội dung *" required>{{ old('message') }}</textarea>
                             @error('message')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        
+
                         <button type="submit" class="btn btn-primary w-100">
                             <i class="fas fa-paper-plane me-2"></i>Gửi yêu cầu
                         </button>
