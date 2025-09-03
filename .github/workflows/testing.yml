@@ -25,14 +25,14 @@ jobs:
             - name: "Create .env file"
               run: cp -rf .env.example .env
 
+            - name: "Install dependencies"
+              run: composer install --ansi --no-interaction --no-progress
+
             - name: "Generate app key"
               run: php artisan key:generate
 
             - name: "Add PHPUnit matcher"
               run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
-
-            - name: "Install dependencies"
-              run: composer install --ansi --no-interaction --no-progress
 
             - name: "Build and compile assets"
               run: |
