@@ -31,11 +31,6 @@ jobs:
             - name: "Generate app key"
               run: php artisan key:generate
 
-            - name: "Setup database"
-              run: |
-                touch database/database.sqlite
-                php artisan migrate --force
-
             - name: "Add PHPUnit matcher"
               run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
