@@ -8,7 +8,7 @@ on:
 
 jobs:
     unit-tests:
-        name: "ubuntu-latest / PHP 8.2"
+        name: "ubuntu-latest / PHP 8.3"
         runs-on: "ubuntu-latest"
         steps:
             - name: "Checkout code"
@@ -19,11 +19,14 @@ jobs:
               with:
                   coverage: "none"
                   extensions: "intl, mbstring, pdo_sqlite, zip"
-                  php-version: "8.2"
+                  php-version: "8.3"
                   tools: composer:v2
 
             - name: "Create .env file"
               run: cp -rf .env.example .env
+
+            - name: "Generate app key"
+              run: php artisan key:generate
 
             - name: "Add PHPUnit matcher"
               run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
