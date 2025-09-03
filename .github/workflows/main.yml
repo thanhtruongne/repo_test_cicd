@@ -12,6 +12,7 @@ on:
 env:
   SSH_SERVER_IP: ${{ secrets.SSH_HOST }}
   SSH_USER: ${{ secrets.SSH_USERNAME }}
+  APP_PATH: /www/wwwroot/booking
 
 jobs:
   deploy:
@@ -29,6 +30,7 @@ jobs:
       - name: Deploy to server
         run: |
           ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER_IP << 'EOF'
+            cd $APP_PATH
             git reset --hard
             git pull origin main
           EOF
@@ -36,6 +38,7 @@ jobs:
       - name: "Install dependencies"
         run: |
           ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER_IP << 'EOF'
+            cd $APP_PATH
             composer install --ansi --no-interaction --no-progress --prefer-dist
             php artisan config:cache
             php artisan route:cache
@@ -45,6 +48,7 @@ jobs:
       - name: "Build and compile assets"
         run: |
           ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER_IP << 'EOF'
+            cd $APP_PATH
             npm install --production=false
             npm run build
           EOF
