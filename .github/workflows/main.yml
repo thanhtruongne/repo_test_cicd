@@ -45,10 +45,10 @@ jobs:
             php artisan view:cache
           EOF
 
-      - name: "Build and compile assets"
-        run: |
-          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER_IP << EOF
-            cd $APP_PATH
-            npm install --production=false
-            npm run build
-          EOF
+      # - name: "Build and compile assets"
+      #   run: |
+      #     ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_SERVER_IP << EOF
+      #       cd $APP_PATH
+      #       npm install --production=false
+      #       npm run build
+      #     EOF
