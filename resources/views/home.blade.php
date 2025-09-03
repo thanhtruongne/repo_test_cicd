@@ -30,7 +30,7 @@
                     <div class="card-body">
                         <i class="fas fa-microphone-alt fa-3x text-primary mb-3"></i>
                         <h3>{{ $featuredRooms->count() }}</h3>
-                        <h5>Phòng Thu NghiệpNghiệpNghiệpNghiệpNghiệpNghiệpNghiệpNghiệpNghiệpNghiệpNghiệpNghiệpNghiệp</h5>
+                        <h5>Phòng Thu</h5>
                     </div>
                 </div>
             </div>
